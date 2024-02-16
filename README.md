@@ -2,7 +2,7 @@
 
 ## Description
 
-Ansible playbook to setup docker-based Bookstack app and database. This branch is for getting ready for roles division.
+Ansible playbook to setup docker-based Bookstack app and its database.
 
 ## File Tree
 
@@ -52,5 +52,5 @@ ansible-playbook -i hosts.yaml playbook.yaml
 
 ## Resolution
 
-Point your reverse-proxy towards <app-server>:6875 (if your reverse-proxy and bookstack-app are on different server), and you should be able to access your Bookstack instance using the URL you define in `app_url` variable in `roles/bookstack-docker-setup/vars/main.yaml` file.
+Point your reverse-proxy towards {{ app-server }}:6875 (if your reverse-proxy and bookstack-app are on different server), and you should be able to access your Bookstack instance using the URL you define in `app_url` variable in `roles/bookstack-docker-setup/vars/main.yaml` file.
 
