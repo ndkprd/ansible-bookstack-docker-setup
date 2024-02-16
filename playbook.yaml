@@ -1,0 +1,10 @@
+---
+- name: Setup Docker-based Bookstack
+  hosts: all
+  become: true
+  gather_facts: yes
+
+  roles:
+    - basic-setup
+    - docker-setup
+    - bookstack-docker-setup

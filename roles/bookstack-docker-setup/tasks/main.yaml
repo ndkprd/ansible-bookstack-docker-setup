@@ -1,0 +1,40 @@
+---
+- name: Create db directory in db-server
+  file:
+    path: /home/{{ ansible_user }}/docker/bookstack/db/
+    state: directory
+  when: "'db-server' in group_names"
+
+- name: Copy bookstack's database docker-compose file to db-server
+  template:
+    src: ./templates/db-docker-compose.yaml.j2
+    dest: /home/{{ ansible_user }}/docker/bookstack/db/docker-compose.yaml
+  when: "'db-server' in group_names"
+
+- name: Run the bookstack's database  docker-compose file
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/docker/bookstack/db
+    remove_orphans: true
+    files:
+      - docker-compose.yaml
+  when: "'db-server' in group_names"
+
+- name: Create the bookstack's app directory in app-server
+  file:
+    path: /home/{{ ansible_user }}/docker/bookstack/app/
+    state: directory
+  when: "'app-server' in group_names"
+
+- name: Copy the bookstack's app docker-compose file to app-server
+  template:
+    src: ./templates/app-docker-compose.yaml.j2
+    dest: /home/{{ ansible_user }}/docker/bookstack/app/docker-compose.yaml
+  when: "'app-server' in group_names"
+
+- name: Run the bookstack's app docker-compose file
+  community.docker.docker_compose:
+    project_src: /home/{{ ansible_user }}/docker/bookstack/app/
+    remove_orphans: true
+    files:
+      - docker-compose.yaml
+  when: "'app-server' in group_names"

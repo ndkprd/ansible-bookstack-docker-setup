@@ -1,0 +1,38 @@
+# roles/bookstack-docker-setup/vars/main.yaml
+
+bookstack:
+  container_tz: 'Asia/Jakarta'
+  container_puid: 1000
+  container_pgid: 1000
+  app_container_image: 'lscr.io/linuxserver/bookstack'
+  app_container_image_tag: '23.12.2'
+  app_container_name: 'bookstack-app'
+  app_container_port: '6875' #host's port you want to map to the app-container:80
+  app_url: "'https://bookstack.domain.tld'" #full URL, include http/https
+  app_auth_method: 'ldap' #'standard' or 'ldap'
+  app_ldap_server: 10.0.0.3:389 #ip/domain:port only if standard ldap, add 'ldaps://' if using LDAPS
+  app_ldap_base_dn: "'DC=domain,DC=tld'"
+  app_ldap_id_attribute: mail
+  app_ldap_display_name_attribute: cn
+  app_ldap_email_attribute: mail
+  app_ldap_user_filter: "'(&(mail=$${user})(objectclass=user)'"
+  app_ldap_start_tls: false #'true' or 'false'
+  app_ldap_version: 3
+  app_ldap_dn: "'CN=LDAP Admin,OU=Administrator,DC=domain,DC=tld'"
+  app_ldap_pass: '12345678'
+  app_mail_driver: smtp
+  app_mail_host: mail.domain.tld
+  app_mail_port: 25
+  app_mail_from: bookstack@domain.tld
+  app_mail_from_name: "'Bookstack'"
+  app_mail_verify_ssl: 'false' #'true' or 'false'
+  app_debug: 'true' #'true' or 'false'
+  db_container_name: 'bookstack-db'
+  db_container_image: mariadb
+  db_container_image_tag: '11.2.3'
+  db_root_password: '12345678'
+  db_host: 10.0.0.2
+  db_port: 3306 #host's port you want to map to db-container:3306
+  db_user: bookstack
+  db_pass: '12345678'
+  db_database: bookstack

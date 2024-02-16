@@ -1,0 +1,41 @@
+# app-docker-compose.yaml
+
+version: "3"
+
+services:
+  {{ bookstack.app_container_name }}:
+    image: {{ bookstack.app_container_image }}:{{ bookstack.app_container_image_tag }}
+    container_name: {{ bookstack.app_container_name }}
+    environment:
+      - PUID={{ bookstack.container_puid }}
+      - PGID={{ bookstack.container_pgid }}
+      - TZ={{ bookstack.container_tz }}
+      - APP_URL={{ bookstack.app_url }}
+      - DB_HOST={{ bookstack.db_host }}
+      - DB_PORT={{ bookstack.db_port }}
+      - DB_USER={{ bookstack.db_user }}
+      - DB_PASS={{ bookstack.db_pass }}
+      - DB_DATABASE={{ bookstack.db_database }}
+      - AUTH_METHOD={{ bookstack.app_auth_method }}
+      - LDAP_SERVER={{ bookstack.app_ldap_server }}
+      - LDAP_BASE_DN={{ bookstack.app_ldap_base_dn }}
+      - LDAP_ID_ATTRIBUTE={{ bookstack.app_ldap_id_attribute }}
+      - LDAP_DISPLAY_NAME_ATTRIBUTE={{ bookstack.app_ldap_display_name_attribute }}
+      - LDAP_EMAIL_ATTRIBUTE={{ bookstack.app_ldap_email_attribute }}
+      - LDAP_USER_FILTER={{ bookstack.app_ldap_user_filter }}
+      - LDAP_START_TLS={{ bookstack.app_ldap_start_tls }}
+      - LDAP_VERSION={{ bookstack.app_ldap_version }}
+      - LDAP_DN={{ bookstack.app_ldap_dn }}
+      - LDAP_PASS={{ bookstack.app_ldap_pass }}
+      - MAIL_DRIVER={{ bookstack.app_mail_driver }}
+      - MAIL_HOST={{ bookstack.app_mail_host }}
+      - MAIL_PORT={{ bookstack.app_mail_port }}
+      - MAIL_FROM={{ bookstack.app_mail_from }}
+      - MAIL_FROM_NAME={{ bookstack.app_mail_from_name }}
+      - MAIL_VERIFY_SSL={{ bookstack.app_mail_verify_ssl }}
+      - APP_DEBUG={{ bookstack.app_mail_verify_ssl }}
+    volumes:
+      - /home/{{ ansible_user }}/docker/bookstack/app/config/:/config/
+    ports:
+      - {{ bookstack.app_container_port }}:80
+    restart: unless-stopped

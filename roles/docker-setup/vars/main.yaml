@@ -1,0 +1,11 @@
+# roles/docker-setup/vars/main.yaml
+
+docker_packages:
+  - ca-certificates
+  - python3-pip
+  - python3-setuptools
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
+  - docker-compose-plugin

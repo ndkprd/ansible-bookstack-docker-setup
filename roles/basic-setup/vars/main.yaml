@@ -1,0 +1,15 @@
+# roles/basic-setup/vars/main.yaml
+
+ansible_user: ansible
+ansible_os_family: centos
+
+basic_packages:
+  - python3
+  - epel-release
+  - net-tools
+  - tree
+  - nmap
+  - nano
+  - curl
+  - yum-utils
+  - git

@@ -1,0 +1,36 @@
+---
+- name: Add docker repository
+  shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  args:
+    creates: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install required system packages for Docker
+  yum:
+    name:
+      - ca-certificates
+      - python3-pip
+      - python3-setuptools
+    state: latest
+    update_cache: true
+
+- name: Install Docker Module for Python
+  pip:
+    name:
+      - docker
+      - docker-compose
+
+- name: Install Docker Engine, containerd, Docker Compose
+  yum:
+    name: "{{ docker_packages }}"
+    state: latest
+    update_cache: true
+
+- name: Enable Docker service
+  systemd:
+    name: docker
+    enabled: yes
+
+- name: Start Docker service
+  systemd:
+    name: docker
+    state: started

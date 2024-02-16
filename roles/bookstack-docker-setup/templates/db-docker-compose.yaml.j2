@@ -1,0 +1,22 @@
+# db-docker-compose.yaml
+
+version: "3"
+
+services:
+
+  {{ bookstack.db_container_name }}:
+    image: {{ bookstack.db_container_image }}:{{ bookstack.db_container_image_tag }}
+    container_name: {{ bookstack.db_container_name }}
+    environment:
+      - PUID={{ bookstack.container_puid }}
+      - PGID={{ bookstack.container_pgid }}
+      - MYSQL_ROOT_PASSWORD={{ bookstack.db_root_password }}
+      - TZ={{ bookstack.container_tz }}
+      - MYSQL_DATABASE={{ bookstack.db_database }}
+      - MYSQL_USER={{ bookstack.db_user }}
+      - MYSQL_PASSWORD={{ bookstack.db_pass }}
+    ports:
+      - {{ bookstack.db_port }}:3306
+    volumes:
+      - /home/{{ ansible_user }}/docker/bookstack/db/config/:/config/
+    restart: unless-stopped

@@ -1,0 +1,22 @@
+---
+- name: Update repo
+  yum:
+    name: '*'
+    state: latest
+
+- name: Install basic software
+  yum:
+    name: "{{ basic_packages }}"
+    state: latest
+    update_cache: true
+  ignore_errors: yes
+
+- name: Set Python interpreter
+  set_fact:
+    ansible_python_interpreter: /bin/python3
+
+- name: Disable firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
